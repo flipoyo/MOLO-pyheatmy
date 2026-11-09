@@ -8549,8 +8549,8 @@ packages:
   timestamp: 1786995678795
 - pypi: ./
   name: pyheatmy
-  version: 0.12.1
-  sha256: 18066899e3fc3ec5bf37d2dc7a97c76f0fefa446059ded95ea88f19d9b35d8bc
+  version: 0.12.2
+  sha256: 2f691428928b613b409c29ebf804f3b8ab53cde0d77095c765852b6948d31e39
   requires_dist:
   - matplotlib
   - scipy

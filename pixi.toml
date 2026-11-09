@@ -2,7 +2,7 @@
 # pyheatmy together with the other packages.
 [workspace]
 name = "pyheatmy"
-version = "0.12.1"
+version = "0.12.2"
 channels = ["conda-forge"]
 platforms = ["osx-arm64", "osx-64", "linux-64", "win-64"]
 
