@@ -27,7 +27,7 @@ dependencies = [
 requires-python = ">= 3.9"
 
 [project.urls]
-Homepage = "https://github.com/flipoyo/MOLONARI-computo-pyheatmy"
+Homepage = "https://github.com/flipoyo/MOLO-pyheatmy"
 
 [tool.setuptools]
 packages = ["pyheatmy"]

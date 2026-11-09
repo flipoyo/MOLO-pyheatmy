@@ -1,6 +1,6 @@
-# Runs the tests of pyheatmy on every push and pull request. pyheatmy does not import bayesian_inversion, so it is
-# installed alone; the tests that use the two packages together are in the MOLONARI-computo tree
-# (integration_tests/, run with pixi run test-all at the root of the tree).
+# Runs the tests of pyheatmy on every push and pull request, in the pixi environments of this repository: py310 and
+# py313, the oldest and the newest Python supported. pyheatmy does not import bayesian_inversion, so it is installed alone; the
+# two packages are used together in the MOLONARI-computo tree (pixi run test-all at the root of the tree).
 name: tests
 
 on:
@@ -14,14 +14,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # the oldest and the newest Python of the environment of the MOLONARI-computo tree
-        python-version: ["3.10", "3.13"]
+        environment: [py310, py313]
     steps:
       - uses: actions/checkout@v5
-      - uses: actions/setup-python@v6
+      - uses: prefix-dev/setup-pixi@v0.9.0
         with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install pyheatmy and its dependencies
-        run: python -m pip install -e .
+          pixi-version: v0.66.0
+          environments: ${{ matrix.environment }}
+          locked: true
+      - name: Check that every file holds the version of pixi.toml
+        run: pixi run -e ${{ matrix.environment }} check-version
       - name: Run the tests
-        run: python -m pytest tests
+        run: pixi run -e ${{ matrix.environment }} test

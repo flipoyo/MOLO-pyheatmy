@@ -11,25 +11,42 @@ head and temperature profiles. A `Layer` holds the physical parameters of a laye
 names to values per layer, leaves the column unchanged and returns the temperatures at the inner sensors
 (`"sensors"`, comparable with `Column.get_measured_temperatures()`) and the temperatures and specific flows of
 every cell (`"temperatures"`, `"flows"`). An estimation of the parameters uses it as its model: the MCMC of
-[MOLONARI-computo-bayesian-inversion](https://github.com/flipoyo/MOLONARI-computo-bayesian-inversion) does, without
+[MOLO-bayesian](https://github.com/flipoyo/MOLO-bayesian) does, without
 `pyheatmy` and `bayesian_inversion` importing each other.
 
-## Installation
+## Installation and tests
+
+With [pixi](https://pixi.sh), in this repository:
 
 ```sh
-pip install -e path/to/pyheatmy
+pixi install       # Python, the dependencies and pyheatmy in editable mode
+pixi run test      # the tests of pyheatmy
 ```
 
-## Tests
-
-```sh
-python -m pytest tests
-```
-
-The tests that use `pyheatmy` together with `bayesian_inversion` are in the MOLONARI-computo tree
-(`integration_tests/`, `pixi run test-all`).
+`pixi run -e py310 test` and `pixi run -e py313 test` run them with the oldest and the newest Python supported, as
+GitHub Actions does at every push. Within the [MOLONARI-computo](https://github.com/flipoyo/MOLONARI-computo) tree,
+`pixi install` at the root of the tree installs `pyheatmy` together with the other packages, and `pixi run test-all`
+runs all their tests.
 
 ## Tutorials
 
 The tutorials (generation of synthetic data, inversion) are in
-[MOLONARI-computo-tuto](https://github.com/flipoyo/MOLONARI-computo-tuto).
+[MOLO-tuto-cmpt](https://github.com/flipoyo/MOLO-tuto-cmpt).
+
+## Versioning
+
+The version follows [SemVer](https://semver.org). `[workspace] version` in `pixi.toml` is the reference;
+`scripts/bump_version.py`, the same in every repository of the MOLONARI-computo tree, writes it into every file that
+mirrors it (`pyproject.toml`, `pyheatmy/__init__.py`):
+
+```sh
+pixi run bump-version minor --dry-run   # print the plan, write nothing
+pixi run bump-version patch             # or minor, major; --stage rc adds a pre-release label
+pixi run check-version                  # every mirror holds the version of pixi.toml (checked by GitHub Actions)
+```
+
+## LLM assistance
+
+Parts of this repository (its pixi environment and this README) were written with the help of large language
+models, mainly Claude (Anthropic) with Claude Code, used as a paid service under the direction of the project
+manager, Nicolas Flipo. They are acknowledged here rather than credited as co-authors.
